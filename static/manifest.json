@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "OkPal",
     "version": "1.0",
-    "description": "A Chrome extension using React for the popup UI",
+    "description": "",
     "action": {
       "default_popup": "popup.html",
       "default_icon": {
