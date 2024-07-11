@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { isChromeExtension } from './util/common';
 
 const normalizeDomain = (domain) => {
     if (!domain.startsWith('http://') && !domain.startsWith('https://')) {
@@ -114,11 +115,18 @@ const Popup = () => {
         <div className="flex flex-col min-h-screen">
             <main className="flex-grow">
                 <div className="mx-auto max-w-screen-xl">
-                    <div className="py-2 bg-blue-400">
-                        <p className="text-center text-white">
-                            <span className="text-lg font-medium select-none">OkPal </span>
-                            <span>v{chrome.runtime.getManifest().version}</span>
-                        </p>
+                    <div className="py-2 bg-blue-400 flex justify-between items-center">
+                        <div className="flex-grow text-center">
+                            <p className="text-white">
+                                <span className="text-lg font-medium select-none">OkPal </span>
+                                <span>v{isChromeExtension() ? chrome.runtime.getManifest().version : '1.0'}</span>
+                            </p>
+                        </div>
+                        {!isChromeExtension() && 
+                            <a href="?options=1" className="text-white mr-4">
+                                [Options]
+                            </a>
+                        }
                     </div>
                     <div className="mx-auto max-w-lg px-4">
                         <div className="mb-0 space-y-4 pt-4">
@@ -136,7 +144,7 @@ const Popup = () => {
                                         onKeyDown={handleKeyDown}
                                     />
                                     {hint && (
-                                        <label className="absolute top-0 left-0 px-4 py-4 text-sm pointer-events-none whitespace-nowrap" style={{ top:"1px", left:"1px" }}>
+                                        <label className="absolute top-0 left-0 px-4 py-4 text-sm pointer-events-none whitespace-nowrap" style={{ top: "1px", left: "1px" }}>
                                             <span style={{ color: 'transparent' }}>{domain}</span>
                                             <span style={{ color: 'gray' }}>{hint}</span>
                                             <span style={{ opacity: '0.7', display: 'none' }} className="ml-12">Press <span className="whitespace-nowrap rounded-full bg-blue-100 px-2.5 py-0.5 text-sm text-blue-700">TAB</span> to autocomplete</span>

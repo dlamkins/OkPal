@@ -2,10 +2,13 @@ const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    popup: './src/index.js',
+    options: './src/options.js'
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'popup.js'
+    filename: '[name].js'
   },
   module: {
     rules: [
